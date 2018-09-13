@@ -2,11 +2,10 @@
 PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Valerie Galluzzi, Mark Hays,
-         Amanda Stouder, their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         Amanda Stouder, their colleagues and Jacob Pinney.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
-
 ########################################################################
 # Students:
 #
@@ -102,7 +101,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -110,6 +109,27 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    upper_right_x = rectangle.get_center().x + rectangle.get_width() / 2
+    upper_right_y = rectangle.get_center().y - rectangle.get_height() / 2
+    lower_left_x = rectangle.get_center().x - rectangle.get_width() / 2
+    lower_left_y = rectangle.get_center().y + rectangle.get_height() / 2
+
+    upper_right = rg.Point(upper_right_x, upper_right_y)
+    lower_left = rg.Point(lower_left_x, lower_left_y)
+    rectangle_line = rg.Line(upper_right, lower_left)
+    rectangle_line.arrow = "last"
+    rectangle_line.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    circle.fill_color = rectangle.outline_color
+    window.render()
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -173,7 +193,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -181,6 +201,23 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+    rect.attach_to(win)
+    for k in range(n - 1):
+        increase = (k + 1) * 2 * delta
+        width = rect.get_width() + increase
+        height = rect.get_height() + increase
+
+        corner1_x = rect.get_center().x - width / 2
+        corner1_y = rect.get_center().y - height / 2
+        corner1 = rg.Point(corner1_x, corner1_y)
+
+        corner2_x = rect.get_center().x + width / 2
+        corner2_y = rect.get_center().y + height / 2
+        corner2 = rg.Point(corner2_x, corner2_y)
+
+        rectangle = rg.Rectangle(corner1, corner2)
+        rectangle.attach_to(win)
+    win.render()
 
 
 # ----------------------------------------------------------------------
